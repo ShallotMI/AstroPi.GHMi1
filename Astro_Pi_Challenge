@@ -1,2 +1,8 @@
+main.py
 import astro_pi_orbit
 import numpy
+import time
+from picamzero import Camera
+tick.time = 60
+camera = Camera()
+camera.take_photo("image.jpg")
