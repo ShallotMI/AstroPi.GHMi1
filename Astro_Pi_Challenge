@@ -1,8 +1,29 @@
-main.py
-import astro_pi_orbit
-import numpy
-import time
-from picamzero import Camera
-tick.time = 60
-camera = Camera()
-camera.take_photo("image.jpg")
+import cv2
+import numpy as np
+import csv
+from datetime import datetime
+
+------------------------
+CLOUD DETECTION
+------------------------
+
+def detect_clouds(image_path):
+"""
+Returns cloud statistics from an image.
+"""
+
+# Load image
+image = cv2.imread(image_path)
+
+# Resize for faster processing
+image = cv2.resize(image, (640, 480))
+
+# Convert to HSV colour space
+hsv = cv2.cvtColor(image, cv2.COLOR_BGR2HSV)
+
+# Cloud mask:
+# bright colours, low saturation
+lower = np.array([0, 0, 150])
+upper = np.array([180, 80, 255])
+
+cloud_mask = cv2.inRange(hsv, lower, upper)
